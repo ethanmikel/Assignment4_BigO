@@ -27,8 +27,22 @@ def length_of_longest_substring_n3(s):
     post: Returns an integer >= 0 representing the length of the longest substring
           in s that contains no repeating characters.
     """
-    pass
+    length_max = 0
+    for i in range(len(s)): 
+      for j in range(i, len(s)):
+            freq_represent = [0] * 256
+            is_valid = True 
+            for k in range(i, j+1):
+                element = ord(s[k])
+                freq_represent[element] += 1
 
+            if freq_represent[element] > 1:
+                    is_valid = False
+
+            if is_valid:
+                length_max = max(length_max, j - i + 1)
+    
+    return length_max
 
 # TODO: implement this function. You may delete this comment when you are done.
 def length_of_longest_substring_n2(s):
@@ -42,8 +56,18 @@ def length_of_longest_substring_n2(s):
     post: Returns an integer >= 0 representing the length of the longest substring
           in s that contains no repeating characters.
     """
-    pass
+    length_max = 0
+    for i in range(len(s)):
+      freq_represent = [0] * 256
+      for j in range(i, len(s)):
+            element = ord(s[j])
+            freq_represent[element] += 1
+            
+            if freq_represent[element] > 1:
+                break 
+            length_max = max(length_max, j - i + 1)
 
+    return length_max
 
 # TODO: implement this function. You may delete this comment when you are done.
 def length_of_longest_substring_n(s):
@@ -59,4 +83,18 @@ def length_of_longest_substring_n(s):
     post: Returns an integer >= 0 representing the length of the longest substring
           in s that contains no repeating characters.
     """
-    pass
+    length_max = 0
+    freq_represent = [0] * 256
+    start = 0
+
+    for i in range(len(s)):
+      element = ord(s[i])
+      freq_represent[element] += 1
+
+      while freq_represent[element] > 1:
+            freq_represent[ord(s[start])] -= 1
+            start += 1
+
+      length_max = max(length_max, j - i + 1)
+
+    return length_max
